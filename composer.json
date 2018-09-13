@@ -1,0 +1,14 @@
+{
+    "description": "",
+    "name": "punktde/codeception-database",
+    "require-dev": {
+        "codeception/codeception": "*",
+        "neos/utility-arrays": "*",
+        "neos/utility-files": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PunktDe\\Codeception\\Database\\": "Classes/"
+      }
+    }
+}
