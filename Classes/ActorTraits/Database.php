@@ -16,32 +16,50 @@ trait Database
 {
     /**
      * @Given dataset :dataset is imported
+     * @param string $dataset
      */
-    public function iImportDataset($dataset)
+    public function iImportDataset(string $dataset): void
     {
         $this->importDataset($dataset);
     }
 
     /**
      * @Then the database table :table should contain
+     * @param string $table
+     * @param TableNode $tableNode
      */
-    public function databaseTableShouldContain($table, TableNode $tableNode)
+    public function databaseTableShouldContain(string $table, TableNode $tableNode): void
     {
         $this->databaseTableShouldContainTable($table, $tableNode);
     }
 
     /**
      * @Then the database query :query should return a json field with data
+     * @param string $query
+     * @param TableNode $tableNode
      */
-    public function databaseQueryShouldReturnJsonField(string $query, TableNode $tableNode) {
+    public function databaseQueryShouldReturnJsonField(string $query, TableNode $tableNode): void {
         $this->databaseQueryReturnsFieldWithJson($query, $tableNode);
     }
 
     /**
      * @Then the database has :number rows in table :table
+     * @param int $number
+     * @param string $table
      */
-    public function seeNumberOfRows(int $number, string $table)
+    public function seeNumberOfRows(int $number, string $table): void
     {
         $this->seeNumRecords($number, $table);
+    }
+
+    /**
+     * @Then there are :expectedNumber rows matching :criteria in table :table
+     * @param int $expectedNumber
+     * @param string $table
+     * @param array $criteria
+     */
+    public function seeNumRecordsMatching(int $expectedNumber, string $table, array $criteria = []): void
+    {
+        $this->seeNumRecords($expectedNumber, $table, $criteria);
     }
 }

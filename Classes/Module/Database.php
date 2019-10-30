@@ -22,7 +22,7 @@ class Database extends Db
     /**
      * @param string $dataset
      */
-    public function importDataset(string $dataset)
+    public function importDataset(string $dataset): void
     {
         $fileContents = Files::getFileContents(Files::concatenatePaths([Configuration::testsDir(), $dataset]));
 
@@ -45,7 +45,7 @@ class Database extends Db
      * @param string $table
      * @param TableNode $tableNode
      */
-    public function databaseTableShouldContainTable(string $table, TableNode $tableNode)
+    public function databaseTableShouldContainTable(string $table, TableNode $tableNode): void
     {
         $tableRows = $tableNode->getRows();
         $arrayKeys = $tableRows[0];
@@ -62,7 +62,7 @@ class Database extends Db
      * @param TableNode $jsonContent
      * @throws \Exception
      */
-    public function databaseQueryReturnsFieldWithJson(string $query, TableNode $jsonContent)
+    public function databaseQueryReturnsFieldWithJson(string $query, TableNode $jsonContent): void
     {
         $pdoStatement = $this->driver->executeQuery($query, []);
         /** @var $pdoStatement \PDOStatement */
