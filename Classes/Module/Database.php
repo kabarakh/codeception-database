@@ -30,7 +30,7 @@ class Database extends Db
 
         if (is_array($datasetArray)) {
             foreach ($datasetArray as $tableName => $listOfItems) {
-                $this->driver->deleteQueryByCriteria($tableName, []);
+                $this->_getDriver()->deleteQueryByCriteria($tableName, []);
 
                 if (is_array($listOfItems)) {
                     foreach ($listOfItems as $datarow) {
@@ -64,7 +64,7 @@ class Database extends Db
      */
     public function databaseQueryReturnsFieldWithJson(string $query, TableNode $jsonContent): void
     {
-        $pdoStatement = $this->driver->executeQuery($query, []);
+        $pdoStatement = $this->_getDriver()->executeQuery($query, []);
         /** @var $pdoStatement \PDOStatement */
 
         $this->assertEquals(0, $pdoStatement->errorCode(), sprintf('Execution of query "%s" failed with error "%s" (%d)', $query, implode("\n", $pdoStatement->errorInfo()), $pdoStatement->errorCode()));
