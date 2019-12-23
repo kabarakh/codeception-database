@@ -2,10 +2,11 @@
     "description": "Provides a module and gherkin steps to use databases for codeception testing",
     "name": "punktde/codeception-database",
     "license": "GPL-3.0-or-later",
-    "require-dev": {
-        "codeception/codeception": "*",
+    "require": {
+        "codeception/codeception": "^4.0",
         "neos/utility-arrays": "*",
-        "neos/utility-files": "*"
+        "neos/utility-files": "*",
+        "codeception/module-db": "^1.0"
     },
     "autoload": {
         "psr-4": {
