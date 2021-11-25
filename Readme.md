@@ -13,8 +13,10 @@ modules:
    enabled:
       - PunktDe\Codeception\Database\Module\Database:
          dsn: 'mysql:host=localhost;dbname=testdb'
+         host: localhost # needd for sql file import
          user: 'root'
          password: ''
+         dbname: testdb # needed for sql file import
          dump: 'tests/_data/dump.sql'
          populate: true
          cleanup: true

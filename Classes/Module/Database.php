@@ -20,6 +20,24 @@ class Database extends Db
 {
 
     /**
+     * @throws \Exception
+     */
+    public function importDataFromSql(string $filename): void
+    {
+        $filepath = Files::concatenatePaths([Configuration::testsDir(), $filename]);
+        $config = $this->_getConfig();
+        if (array_key_exists('host', $config) && array_key_exists('user', $config) && array_key_exists('password', $config) && array_key_exists('dbname', $config)) {
+            $cmd = 'mysql -h' . $config['host'] . ' -u ' . $config['user'] . ' -p' . $config['password'] . ' ' . $config['dbname'] . ' < ' . $filepath;
+            $result = exec($cmd);
+            if ($result !== '') {
+                throw new  \Exception('Could not import sql file ' . $filepath . ' . Error: ' . $result, 1637769333);
+            }
+        } else {
+            codecept_debug('Skipping sql file import because configuration is missing. If you want to import form sql file please set host, username, password and dbname.');
+        }
+    }
+
+    /**
      * @param string $dataset
      */
     public function importDataset(string $dataset): void
