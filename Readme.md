@@ -8,7 +8,7 @@
 
 Use the module `PunktDe\Codeception\Database\Module\Database` instead of the default codeception module `db` in your `codeception.yaml`:
 
-```
+```yaml
 modules:
    enabled:
       - PunktDe\Codeception\Database\Module\Database:
@@ -38,7 +38,7 @@ Just add the trait `PunktDe\Codeception\Database\ActorTraits\Database` to your t
 
 ##### Example actor 
 
-```
+```php
 <?php
 
 /*
@@ -72,7 +72,7 @@ class AcceptanceTester extends \Codeception\Actor
 
 To get all the steps available you can just run the following command:
 
-```
+```bash
 vendor/bin/codecept -c path/to/codeception.yaml gherkin:steps suiteName
 ```
 
