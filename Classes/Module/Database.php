@@ -40,11 +40,11 @@ class Database extends Db
             $cmd = 'mysql -h ' . $host . ' -u ' . $user . ' -p' . $password . ' ' . $dbname . ' < ' . $filepath;
             $result = exec($cmd);
             if ($result !== '') {
-                throw new  \Exception('Could not import sql file ' . $filepath . ' . Error: ' . $result, 1637769333);
+                throw new  \Exception('Could not import from sql file ' . $filepath . ' . Error: ' . $result, 1637769333);
             }
             codecept_debug('Finished import');
         } else {
-            codecept_debug('Skipping sql file import because configuration is missing. If you want to import form sql file please set dns, username and password correctly.');
+            codecept_debug('Skipping sql file import because configuration is missing. If you want to import from sql file please set dsn, username and password correctly.');
         }
     }
 
