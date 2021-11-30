@@ -32,17 +32,17 @@ class Database extends Db
             && false !== strpos($this->_getConfig()['dsn'], 'dbname')
         ) {
             codecept_debug('Starting import');
-            codecept_debug($filepath);
             $user = $this->_getConfig()['user'];
             $password = $this->_getConfig()['password'];
             $dsn = explode(';', $this->_getConfig()['dsn']);
             $host = explode('=', explode(':', $dsn[0])[1])[1];
             $dbname = explode('=', $dsn[1])[1];
-            $cmd = 'mysql -h' . $host . ' -u ' . $user . ' -p' . $password . ' ' . $dbname . ' < ' . $filepath;
+            $cmd = 'mysql -h ' . $host . ' -u ' . $user . ' -p' . $password . ' ' . $dbname . ' < ' . $filepath;
             $result = exec($cmd);
             if ($result !== '') {
                 throw new  \Exception('Could not import sql file ' . $filepath . ' . Error: ' . $result, 1637769333);
             }
+            codecept_debug('Finished import');
         } else {
             codecept_debug('Skipping sql file import because configuration is missing. If you want to import form sql file please set dns, username and password correctly.');
         }
