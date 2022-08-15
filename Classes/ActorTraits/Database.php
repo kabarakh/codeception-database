@@ -15,6 +15,15 @@ use Behat\Gherkin\Node\TableNode;
 trait Database
 {
     /**
+     * @Given data from sql file :filepath is imported
+     * @param string $filepath
+     */
+    public function iImportDataFromSql(string $filepath): void
+    {
+        $this->importDataFromSql($filepath);
+    }
+
+    /**
      * @Given dataset :dataset is imported
      * @param string $dataset
      */

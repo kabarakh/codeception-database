@@ -20,6 +20,35 @@ class Database extends Db
 {
 
     /**
+     * @throws \Exception
+     */
+    public function importDataFromSql(string $filename): void
+    {
+        $filepath = Files::concatenatePaths([Configuration::testsDir(), $filename]);
+        if (array_key_exists('user', $this->_getConfig())
+            && array_key_exists('password', $this->_getConfig())
+            && array_key_exists('dsn', $this->_getConfig())
+            && false !== strpos($this->_getConfig()['dsn'], 'host')
+            && false !== strpos($this->_getConfig()['dsn'], 'dbname')
+        ) {
+            codecept_debug('Starting import');
+            $user = $this->_getConfig()['user'];
+            $password = $this->_getConfig()['password'];
+            $dsn = explode(';', $this->_getConfig()['dsn']);
+            $host = explode('=', explode(':', $dsn[0])[1])[1];
+            $dbname = explode('=', $dsn[1])[1];
+            $cmd = 'mysql -h ' . $host . ' -u ' . $user . ' -p' . $password . ' ' . $dbname . ' < ' . $filepath;
+            $result = exec($cmd);
+            if ($result !== '') {
+                throw new  \Exception('Could not import from sql file ' . $filepath . ' . Error: ' . $result, 1637769333);
+            }
+            codecept_debug('Finished import');
+        } else {
+            codecept_debug('Skipping sql file import because configuration is missing. If you want to import from sql file please set dsn, username and password correctly.');
+        }
+    }
+
+    /**
      * @param string $dataset
      */
     public function importDataset(string $dataset): void
