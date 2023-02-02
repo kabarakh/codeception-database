@@ -53,12 +53,12 @@ trait Database
 
     /**
      * @Then the database has :number rows in table :table
-     * @param int $number
+     * @param int|string $number
      * @param string $table
      */
-    public function seeNumberOfRows(int $number, string $table): void
+    public function seeNumberOfRows(int|string $number, string $table): void
     {
-        $this->seeNumRecords($number, $table);
+        $this->seeNumRecords((int)$number, $table);
     }
 
     /**
@@ -67,8 +67,8 @@ trait Database
      * @param string $table
      * @param array $criteria
      */
-    public function seeNumRecordsMatching(int $expectedNumber, string $table, array $criteria = []): void
+    public function seeNumRecordsMatching(int|string $expectedNumber, string $table, array $criteria = []): void
     {
-        $this->seeNumRecords($expectedNumber, $table, $criteria);
+        $this->seeNumRecords((int)$expectedNumber, $table, $criteria);
     }
 }
