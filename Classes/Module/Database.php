@@ -116,4 +116,25 @@ class Database extends Db
         }
     }
 
+    /**
+     * @param string $query
+     * @param TableNode $jsonContent
+     * @return void
+     * @throws \Exception
+     */
+    public function databaseQueryReturnsFields(string $query, TableNode $fields): void
+    {
+        $pdoStatement = $this->_getDriver()->executeQuery($query, []);
+        /** @var $pdoStatement \PDOStatement */
+
+        $this->assertEquals(0, $pdoStatement->errorCode(), sprintf('Execution of query "%s" failed with error "%s" (%d)', $query, implode("\n", $pdoStatement->errorInfo()), $pdoStatement->errorCode()));
+
+        $result = $pdoStatement->fetchAll(\PDO::FETCH_ASSOC);
+
+        $fieldsRows = $fields->getRows();
+        foreach ($fieldsRows as $singleRow) {
+            $dataContent = Arrays::getValueByPath($result, $singleRow[0]);
+            $this->assertEquals($singleRow[1], $dataContent, sprintf('Failed asserting that "%s" matches expected "%s" for entry "%s"', $dataContent, $singleRow[1], $singleRow[0]));
+        }
+    }
 }

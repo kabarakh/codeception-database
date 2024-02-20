@@ -71,4 +71,16 @@ trait Database
     {
         $this->seeNumRecords((int)$expectedNumber, $table, $criteria);
     }
+
+    /**
+     * @param string $query
+     * @param TableNode $field
+     * @return void
+     * 
+     * @Then the database query :query should return the fields
+     */
+    public function databaseQueryShouldReturnFields(string $query, TableNode $fields)
+    {
+        $this->databaseQueryReturnsFields($query, $fields);
+    }
 }
