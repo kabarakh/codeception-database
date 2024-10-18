@@ -83,4 +83,14 @@ trait Database
     {
         $this->databaseQueryReturnsFields($query, $fields);
     }
+
+    /**
+     * @Then I execute the database query :query
+     *
+     * @param string $query
+     */
+    public function runDatabaseQuery(string $query)
+    {
+        $this->executeDatabaseQuery($query);
+    }
 }

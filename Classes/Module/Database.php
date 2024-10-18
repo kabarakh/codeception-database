@@ -137,4 +137,15 @@ class Database extends Db
             $this->assertEquals($singleRow[1], $dataContent, sprintf('Failed asserting that "%s" matches expected "%s" for entry "%s"', $dataContent, $singleRow[1], $singleRow[0]));
         }
     }
+
+    /**
+     * @param string $query
+     * @return void
+     * @throws \Exception
+     */
+    public function executeDatabaseQuery(string $query): void
+    {
+        $pdoStatement = $this->_getDriver()->executeQuery($query, []);
+        $this->assertEquals(0, $pdoStatement->errorCode(), sprintf('Execution of query "%s" failed with error "%s" (%d)', $query, implode("\n", $pdoStatement->errorInfo()), $pdoStatement->errorCode()));
+    }
 }
